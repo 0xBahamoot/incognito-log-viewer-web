@@ -1,4 +1,22 @@
-p-terminal{
-    height: 100px;
-    width: 100px;
+.container {
+    margin-top: 30px;
+    position: relative;
+    height: auto;
+    width: 100%;
+    display: block;
+    padding: 25px;
+    background-color: #282C34;
+    overflow: hidden;
+}
+
+.logline {
+    display: block !important;
+    width: auto;
+    height: auto;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #fff;
+    line-height: auto;
+    word-break: break-all;
+    white-space: normal;
 }

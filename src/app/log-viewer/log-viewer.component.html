@@ -1,1 +1,8 @@
-<p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"></p-terminal>
+<h1 style="width: 100%;display: table;margin: 20px auto 0;text-align: left;padding-left:15px;color:#fff" routerLink="/">
+    Incognito Log
+    Viewer
+</h1>
+
+<div class="container">
+    <p class="logline" *ngFor="let item of logItem">{{item}}</p>
+</div>

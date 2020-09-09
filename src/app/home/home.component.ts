@@ -23,14 +23,7 @@ export class HomeComponent implements OnInit {
         }
         this.nodeStatuses.set((status.Chain + (status.Node).toString()), status);
       });
-    }, 2000);
-
-    // backend.connectToLogStreamer('beacon0');
-    // setTimeout(() => {
-    //   backend.logStream.subscribe(log => {
-    //     console.log(log);
-    //   });
-    // }, 2000);
+    }, 1000);
   }
 
   ngOnInit(): void {
@@ -59,45 +52,48 @@ export class HomeComponent implements OnInit {
   }
 
   getVoteCount(key: string): number {
-    var result: any
-    result = this.nodeStatuses.get(key)
+    let result: any;
+    result = this.nodeStatuses.get(key);
     if (!!result) {
-      return result.ProducingStatus.VoteCount
+      return result.ProducingStatus.VoteCount;
     }
-    return 0
+    return 0;
   }
 
   getIsBlockReceived(key: string): boolean {
-    var result: any
-    result = this.nodeStatuses.get(key)
+    let result: any;
+    result = this.nodeStatuses.get(key);
     if (!!result) {
-      return result.ProducingStatus.IsBlockReceived
+      return result.ProducingStatus.IsBlockReceived;
     }
-    return false
+    return false;
   }
 
   getIsVoteSent(key: string): boolean {
-    var result: any
-    result = this.nodeStatuses.get(key)
+    let result: any;
+    result = this.nodeStatuses.get(key);
     if (!!result) {
-      return result.ProducingStatus.IsVoteSent
+      return result.ProducingStatus.IsVoteSent;
     }
-    return false
+    return false;
   }
   getBlockHeight(key: string): number {
-    var result: any
-    result = this.nodeStatuses.get(key)
+    let result: any;
+    result = this.nodeStatuses.get(key);
     if (!!result) {
-      return result.ProducingStatus.BlockHeight
+      return result.ProducingStatus.BlockHeight;
     }
-    return 0
+    return 0;
   }
   getRound(key: string): number {
-    var result: any
-    result = this.nodeStatuses.get(key)
+    let result: any;
+    result = this.nodeStatuses.get(key);
     if (!!result) {
-      return result.ProducingStatus.Round
+      return result.ProducingStatus.Round;
     }
-    return 0
+    return 0;
+  }
+  viewLog(node: string): void {
+
   }
 }

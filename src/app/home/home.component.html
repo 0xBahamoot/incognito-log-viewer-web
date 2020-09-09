@@ -1,0 +1,26 @@
+<h1 style="width: 1077px;display: table;margin: 20px auto 0;text-align: left;padding-left:25px">Incognito Log Viewer
+</h1>
+<div class="container">
+    <div class="table-content">
+        <div class="table-chain">
+            <h4>Node</h4>
+        </div>
+
+        <div class="table-item" *ngFor="let node of nodes">
+            <h4>
+                {{node}}
+            </h4>
+        </div>
+    </div>
+    <div class="table-content" *ngFor="let chain of chains">
+        <div class="table-chain">
+            <h4>{{chain.title}}</h4>
+        </div>
+
+        <div class="table-item" *ngFor="let node of nodes">
+            <h4>
+                {{nodePhase.get(chain.title.toLowerCase()+(node-1).toString())}}
+            </h4>
+        </div>
+    </div>
+</div>

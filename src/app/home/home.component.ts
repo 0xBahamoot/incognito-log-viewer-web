@@ -15,13 +15,22 @@ export class HomeComponent implements OnInit {
   constructor(private backend: BackendService) {
     backend.connectToLogStatus();
     setTimeout(() => {
-      console.log('svb');
       backend.logStatusStream.subscribe(status => {
-        this.nodePhase.set((status.Chain + (status.Node).toString()), status.ProducingStatus.Phase);
+        if (status.IsSuspectDown) {
+          this.nodePhase.set((status.Chain + (status.Node).toString()), 'DOWN');
+        } else {
+          this.nodePhase.set((status.Chain + (status.Node).toString()), status.ProducingStatus.Phase);
+        }
         this.nodeStatuses.set((status.Chain + (status.Node).toString()), status);
       });
-    }, 4000);
+    }, 2000);
 
+    // backend.connectToLogStreamer('beacon0');
+    // setTimeout(() => {
+    //   backend.logStream.subscribe(log => {
+    //     console.log(log);
+    //   });
+    // }, 2000);
   }
 
   ngOnInit(): void {
@@ -31,4 +40,64 @@ export class HomeComponent implements OnInit {
   //   const key = chain.toLowerCase()+ node.toString();
   //  const r = this.nodeStatuses.get(key)
   // }
+
+  getBGColor(key: string): string {
+    switch (key) {
+      case 'PROPOSE':
+        return '#ffc409';
+      case 'LISTEN':
+        return '#ffc409';
+      case 'VOTING':
+        return '#3880ff';
+      case 'COMMIT':
+        return '#2dd36f';
+      case 'DOWN':
+        return '#eb445a';
+      default:
+        return 'unset';
+    }
+  }
+
+  getVoteCount(key: string): number {
+    var result: any
+    result = this.nodeStatuses.get(key)
+    if (!!result) {
+      return result.ProducingStatus.VoteCount
+    }
+    return 0
+  }
+
+  getIsBlockReceived(key: string): boolean {
+    var result: any
+    result = this.nodeStatuses.get(key)
+    if (!!result) {
+      return result.ProducingStatus.IsBlockReceived
+    }
+    return false
+  }
+
+  getIsVoteSent(key: string): boolean {
+    var result: any
+    result = this.nodeStatuses.get(key)
+    if (!!result) {
+      return result.ProducingStatus.IsVoteSent
+    }
+    return false
+  }
+  getBlockHeight(key: string): number {
+    var result: any
+    result = this.nodeStatuses.get(key)
+    if (!!result) {
+      return result.ProducingStatus.BlockHeight
+    }
+    return 0
+  }
+  getRound(key: string): number {
+    var result: any
+    result = this.nodeStatuses.get(key)
+    if (!!result) {
+      return result.ProducingStatus.Round
+    }
+    return 0
+  }
 }

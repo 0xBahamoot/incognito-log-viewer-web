@@ -18,13 +18,16 @@ export class BackendService {
 
   public connectToLogStatus(): void {
     if (!this.logStatusSocket || this.logStatusSocket.closed) {
+      if (!!this.logStatusSocket) {
+        this.logStatusSocket.complete();
+      }
       this.logStatusSocket = webSocket('ws://149.56.25.24:8084/logstatus');
       this.logStatusStream = this.logStatusSocket.pipe(
         tap({
           error: error => {
             console.log(error);
             console.log('lost connection to service... retry in 5s');
-            this.logStatusSocket.complete();
+            this.logStatusSocket.unsubscribe();
             setTimeout(() => {
               console.log('retrying...');
               this.connectToLogStatus();
@@ -34,10 +37,13 @@ export class BackendService {
     }
   }
 
-  public connectToLogStreamer(node: string,lines:number): void {
+  public connectToLogStreamer(node: string, lines: number): void {
+    if (!!this.logStreamSocket) {
+      this.logStreamSocket.unsubscribe();
+    }
     if (!this.logStreamSocket || this.logStreamSocket.closed) {
       this.logStreamSocket = webSocket({
-        url: 'ws://149.56.25.24:8084/streamlog?node=' + node +'&lines='+lines.toString(),
+        url: 'ws://149.56.25.24:8084/streamlog?node=' + node + '&lines=' + lines.toString(),
         deserializer: msg => msg.data,
       });
       this.logStream = this.logStreamSocket.pipe(
@@ -45,10 +51,10 @@ export class BackendService {
           error: error => {
             console.log(error);
             console.log('lost connection to service... retry in 2s');
-            this.logStreamSocket.complete();
+            this.logStreamSocket.unsubscribe();
             setTimeout(() => {
               console.log('retrying...');
-              this.connectToLogStreamer(node,0);
+              this.connectToLogStreamer(node, 0);
             }, 2000);
           },
         }), catchError(_ => EMPTY));

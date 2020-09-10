@@ -9,21 +9,20 @@ import { ActivatedRoute } from '@angular/router';
 export class LogViewerComponent implements OnInit {
   logItem: string[] = [];
   filterLogItem: string[] = [];
-  filterString: string = '';
+  filterString = '';
   constructor(private route: ActivatedRoute, public backend: BackendService) {
     this.route.queryParams.subscribe(params => {
-      console.log(params.node, params.lines);
       let lines = 0;
       if (!!params.lines) {
-        lines = params.lines
+        lines = params.lines;
       }
       setTimeout(() => {
         backend.connectToLogStreamer(params.node, lines);
         backend.logStream.subscribe(log => {
           this.logItem.push(log);
-          if (this.filterString != '') {
+          if (this.filterString !== '') {
             if (log.toLowerCase().includes(this.filterString)) {
-              this.filterLogItem.push(log)
+              this.filterLogItem.push(log);
             }
           }
         });
@@ -36,12 +35,12 @@ export class LogViewerComponent implements OnInit {
   }
 
   filterLines(f: any): void {
-    if (f.code == 'Enter') {
+    if (f.code === 'Enter') {
       this.filterString = '';
       this.filterLogItem = new Array<string>();
       this.logItem.forEach((item: string) => {
         if (item.toLowerCase().includes(f.target.value.toLowerCase())) {
-          this.filterLogItem.push(item)
+          this.filterLogItem.push(item);
         }
       });
       this.filterString = f.target.value.toLowerCase();

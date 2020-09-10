@@ -3,11 +3,13 @@
     Viewer
 </h1>
 
-<div class="container">
+<div class="container" *ngIf="(filterString=='')">
     <p class="logline" *ngFor="let item of logItem">{{item}}</p>
 </div>
-
+<div class="container" *ngIf="(filterString!='')" style="background-color:#000">
+    <p class="logline" *ngFor="let item of filterLogItem">{{item}}</p>
+</div>
 
 <div class="filter-box">
-    <input type="text" placeholder="filter (enter to confirm)">
+    <input type="text" placeholder="filter (enter to confirm)" (keyup)="filterLines($event)">
 </div>

@@ -21,7 +21,7 @@
         <div class="table-item" *ngFor="let node of nodes"
             [ngStyle]="{'background-color':getBGColor(nodePhase.get(chain.title.toLowerCase()+(node-1).toString()))}">
             <div class="table-content" *ngIf="nodePhase.get(chain.title.toLowerCase()+(node-1).toString())"
-                [routerLink]="'/logviewer'" [queryParams]="{ node: chain.title.toLowerCase()+(node-1).toString()}">
+                [routerLink]="'/logviewer'" [queryParams]="{ node: chain.title.toLowerCase()+(node-1).toString(), lines :100}">
                 <p>Status: {{nodePhase.get(chain.title.toLowerCase()+(node-1).toString())}}</p>
                 <p>Block height: {{getBlockHeight(chain.title.toLowerCase()+(node-1).toString())}}</p>
                 <p>Round: {{getRound(chain.title.toLowerCase()+(node-1).toString())}}</p>

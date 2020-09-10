@@ -7,29 +7,45 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./log-viewer.component.scss'],
 })
 export class LogViewerComponent implements OnInit {
-  logItem: [any] = [''];
+  logItem: string[] = [];
+  filterLogItem: string[] = [];
+  filterString: string = '';
   constructor(private route: ActivatedRoute, public backend: BackendService) {
     this.route.queryParams.subscribe(params => {
-      console.log(params.node,params.lines);
+      console.log(params.node, params.lines);
       let lines = 0;
       if (!!params.lines) {
         lines = params.lines
       }
       setTimeout(() => {
-        backend.connectToLogStreamer(params.node,lines);
+        backend.connectToLogStreamer(params.node, lines);
         backend.logStream.subscribe(log => {
-          setTimeout(() => {
-            this.logItem.push(log);
-          }, 50);
+          this.logItem.push(log);
+          if (this.filterString != '') {
+            if (log.toLowerCase().includes(this.filterString)) {
+              this.filterLogItem.push(log)
+            }
+          }
         });
       }, 500);
     });
-    this.logItem.pop();
-
   }
 
   ngOnInit(): void {
 
   }
 
+  filterLines(f: any): void {
+    if (f.code == 'Enter') {
+      this.filterString = '';
+      this.filterLogItem = new Array<string>();
+      this.logItem.forEach((item: string) => {
+        if (item.toLowerCase().includes(f.target.value)) {
+          this.filterLogItem.push(item)
+        }
+      });
+      this.filterString = f.target.value;
+    }
+
+  }
 }

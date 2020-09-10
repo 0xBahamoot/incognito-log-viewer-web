@@ -9,16 +9,20 @@ import { ActivatedRoute } from '@angular/router';
 export class LogViewerComponent implements OnInit {
   logItem: [any] = [''];
   constructor(private route: ActivatedRoute, public backend: BackendService) {
-    this.route.params.subscribe(params => {
-      console.log(params.id);
+    this.route.queryParams.subscribe(params => {
+      console.log(params.node,params.lines);
+      let lines = 0;
+      if (!!params.lines) {
+        lines = params.lines
+      }
       setTimeout(() => {
-        backend.connectToLogStreamer(params.id);
+        backend.connectToLogStreamer(params.node,lines);
         backend.logStream.subscribe(log => {
           setTimeout(() => {
             this.logItem.push(log);
           }, 50);
         });
-      }, 1000);
+      }, 500);
     });
     this.logItem.pop();
 

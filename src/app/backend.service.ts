@@ -34,10 +34,10 @@ export class BackendService {
     }
   }
 
-  public connectToLogStreamer(node: string): void {
+  public connectToLogStreamer(node: string,lines:number): void {
     if (!this.logStreamSocket || this.logStreamSocket.closed) {
       this.logStreamSocket = webSocket({
-        url: 'ws://149.56.25.24:8084/streamlog?node=' + node,
+        url: 'ws://149.56.25.24:8084/streamlog?node=' + node +'&lines='+lines.toString(),
         deserializer: msg => msg.data,
       });
       this.logStream = this.logStreamSocket.pipe(
@@ -48,7 +48,7 @@ export class BackendService {
             this.logStreamSocket.complete();
             setTimeout(() => {
               console.log('retrying...');
-              this.connectToLogStreamer(node);
+              this.connectToLogStreamer(node,0);
             }, 2000);
           },
         }), catchError(_ => EMPTY));

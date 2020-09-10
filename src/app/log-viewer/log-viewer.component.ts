@@ -40,11 +40,11 @@ export class LogViewerComponent implements OnInit {
       this.filterString = '';
       this.filterLogItem = new Array<string>();
       this.logItem.forEach((item: string) => {
-        if (item.toLowerCase().includes(f.target.value)) {
+        if (item.toLowerCase().includes(f.target.value.toLowerCase())) {
           this.filterLogItem.push(item)
         }
       });
-      this.filterString = f.target.value;
+      this.filterString = f.target.value.toLowerCase();
     }
 
   }

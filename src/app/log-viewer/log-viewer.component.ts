@@ -23,7 +23,6 @@ export class LogViewerComponent implements OnInit {
         backend.logStream.subscribe(log => {
           this.logItem.push(log);
           if (this.filterString !== '') {
-            console.log(this.filterString);
             if (log.toLowerCase().includes(this.filterString)) {
               this.filterLogItem.push(log);
             }

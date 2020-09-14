@@ -93,7 +93,12 @@ export class HomeComponent implements OnInit {
     }
     return 0;
   }
-  viewLog(node: string): void {
-
+  getErrorsCount(key: string):number{
+    let result:any;
+    result = this.nodeStatuses.get(key);
+    if (!!result) {
+      return result.ErrorsCount;
+    }
+    return 0;
   }
 }

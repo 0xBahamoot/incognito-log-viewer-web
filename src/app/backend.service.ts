@@ -46,6 +46,7 @@ export class BackendService {
         url: 'ws://149.56.25.24:8084/streamlog?node=' + node + '&lines=' + lines.toString(),
         deserializer: msg => msg.data,
       });
+      console.log(this.logStreamSocket.subscribe())
       this.logStream = this.logStreamSocket.pipe(
         tap({
           error: error => {

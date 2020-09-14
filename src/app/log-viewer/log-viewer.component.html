@@ -1,7 +1,14 @@
 <h1 style="width: 100%;display: table;margin: 20px auto 0;text-align: left;padding-left:25px;color:#fff" routerLink="/">
     Incognito Log
-    Viewer
+    Viewer | {{node}}
 </h1>
+
+<div class="filter-shortcut">
+    <p>Filter shortcut:</p>
+<button (click)="filter('round')">round</button>
+<button (click)="filter('consensus')">consensus</button>
+<button (click)="filter('[err]')">[err]</button>
+</div>
 
 <div class="container" *ngIf="(filterString=='')">
     <p class="logline" *ngFor="let item of logItem">{{item}}</p>
@@ -11,5 +18,5 @@
 </div>
 
 <div class="filter-box">
-    <input type="text" placeholder="filter (enter to confirm)" (keyup)="filterLines($event)">
+    <input type="text" placeholder="filter (enter to confirm)" (keyup)="filterLines($event)" [(value)]="filterString">
 </div>

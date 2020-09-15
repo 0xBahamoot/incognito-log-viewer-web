@@ -36,6 +36,12 @@
     </div>
 </div>
 
+<div *ngIf="!logMode && (selectedHeight!=0)">
+    <div class="filter-shortcut" style="padding-left:25px">
+        <button class="btn-height" (click)="resetHeight()">&#x25C0; Height View</button>
+        <button class="btn-height">{{selectedHeight}}</button>
+    </div>
+</div>
 
 
 <div *ngIf="!logMode">
@@ -51,7 +57,7 @@
         <div class="container" *ngIf="(filterconsensusString!='')" style="background-color:#000">
             <p class="logline" *ngFor="let item of filterconsensusItem">{{item}}</p>
         </div>
-    
+
         <div class="filter-box">
             <input type="text" placeholder="filter (enter to confirm)" (keyup)="filterConsensusLines($event)"
                 [(value)]="filterconsensusString">

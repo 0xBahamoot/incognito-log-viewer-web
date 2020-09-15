@@ -41,7 +41,7 @@ export class LogViewerComponent implements OnInit {
       }, 500);
     });
     setTimeout(() => {
-      this.getConsensusHeights()
+      this.getConsensusHeights();
     }, 2000);
   }
 
@@ -94,9 +94,18 @@ export class LogViewerComponent implements OnInit {
   getConsensusHeights(): void {
     this.backend.getHeightLog(this.node).subscribe(response => {
       this.availiableHeights = response;
-      return
-    })
+      return;
+    });
   }
+
+
+  resetHeight(): void {
+    this.selectedHeight = 0;
+    this.filterconsensusString = '';
+    this.filterconsensusItem = new Array<string>();
+    this.consensusItem = new Array<string>();
+  }
+
   getConsensusHeightLog(height: number): void {
     this.selectedHeight = height;
     this.filterconsensusString = '';

@@ -4,19 +4,57 @@
 </h1>
 
 <div class="filter-shortcut">
-    <p>Filter shortcut:</p>
-<button (click)="filter('round')">round</button>
-<button (click)="filter('consensus')">consensus</button>
-<button (click)="filter('[err]')">[err]</button>
+    <p>Mode:</p>
+    <button [ngClass]="(logMode)?'btn-hightlight':''" (click)="logMode=true">log</button>
+    <button [ngClass]="(logMode)?'':'btn-hightlight'" (click)="logMode=false">height</button>
 </div>
 
-<div class="container" *ngIf="(filterString=='')">
-    <p class="logline" *ngFor="let item of logItem">{{item}}</p>
-</div>
-<div class="container" *ngIf="(filterString!='')" style="background-color:#000">
-    <p class="logline" *ngFor="let item of filterLogItem">{{item}}</p>
+<div *ngIf="logMode">
+    <div class="filter-shortcut">
+        <p>Filter shortcut:</p>
+        <button (click)="filter('consensus')">consensus</button>
+        <button (click)="filter('vote')">vote</button>
+        <button (click)="filter('[err]')">[err]</button>
+        <button (click)="filter('[inf]')">[inf]</button>
+        <button (click)="filter('[wrn]')">[wrn]</button>
+    </div>
+
+    <div class="filter-shortcut">
+        <p>Lines before stream:</p>
+        <input type="text" placeholder="100" (keyup)="linesBeforeStream($event)" [(value)]="lines">
+    </div>
+    <div class="container" *ngIf="(filterString=='')">
+        <p class="logline" *ngFor="let item of logItem">{{item}}</p>
+    </div>
+    <div class="container" *ngIf="(filterString!='')" style="background-color:#000">
+        <p class="logline" *ngFor="let item of filterLogItem">{{item}}</p>
+    </div>
+
+    <div class="filter-box">
+        <input type="text" placeholder="filter (enter to confirm)" (keyup)="filterLines($event)"
+            [(value)]="filterString">
+    </div>
 </div>
 
-<div class="filter-box">
-    <input type="text" placeholder="filter (enter to confirm)" (keyup)="filterLines($event)" [(value)]="filterString">
+
+
+<div *ngIf="!logMode">
+    <div class="container" *ngIf="(selectedHeight==0)">
+        <!-- <p class="logline" *ngFor="let item of consensusItem">{{item}}</p> -->
+        <button class="btn-height" *ngFor="let height of availiableHeights"
+            (click)="getConsensusHeightLog(height)">{{height}}</button>
+    </div>
+    <div *ngIf="selectedHeight!=0">
+        <div class="container" *ngIf="(filterconsensusString=='')">
+            <p class="logline" *ngFor="let item of consensusItem">{{item}}</p>
+        </div>
+        <div class="container" *ngIf="(filterconsensusString!='')" style="background-color:#000">
+            <p class="logline" *ngFor="let item of filterconsensusItem">{{item}}</p>
+        </div>
+    
+        <div class="filter-box">
+            <input type="text" placeholder="filter (enter to confirm)" (keyup)="filterLines($event)"
+                [(value)]="filterconsensusString">
+        </div>
+    </div>
 </div>

@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { HomeComponent } from './home/home.component';
 import { LogViewerComponent } from './log-viewer/log-viewer.component';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,6 +15,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     LogViewerComponent,
   ],
   imports: [
+    HttpClientModule,
     ScrollPanelModule,
     BrowserModule,
     AppRoutingModule,

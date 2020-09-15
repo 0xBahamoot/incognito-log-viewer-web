@@ -118,7 +118,7 @@ export class LogViewerComponent implements OnInit {
     if (f.code === 'Enter') {
       this.filterconsensusString = '';
       this.filterconsensusItem = new Array<string>();
-      this.logItem.forEach((item: string) => {
+      this.consensusItem.forEach((item: string) => {
         if (item.toLowerCase().includes(f.target.value.toLowerCase())) {
           this.filterconsensusItem.push(item);
         }

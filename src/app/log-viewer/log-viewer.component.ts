@@ -113,4 +113,17 @@ export class LogViewerComponent implements OnInit {
       }
     });
   }
+
+  filterConsensusLines(f: any): void {
+    if (f.code === 'Enter') {
+      this.filterconsensusString = '';
+      this.filterconsensusItem = new Array<string>();
+      this.logItem.forEach((item: string) => {
+        if (item.toLowerCase().includes(f.target.value.toLowerCase())) {
+          this.filterconsensusItem.push(item);
+        }
+      });
+      this.filterconsensusString = f.target.value.toLowerCase();
+    }
+  }
 }

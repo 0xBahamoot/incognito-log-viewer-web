@@ -82,23 +82,42 @@
         padding: 4px 8px;
     }
 
-    .btn-hightlight{
+    .btn-hightlight {
         background-color: #25CDD6;
         color: #000;
     }
 }
 
-.btn-height{
+.btn-height {
     color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    height: 45px;
+    padding: 6px 16px;
+    border-radius: 15px;
+    border: 0;
+    background-color: #1c2025;
+    margin: 4px;
+
+    p {
         display: inline-block;
+        color: #4c5363;
+        // background-color: #fff;
+        height: 18px;
+        width: 18px;
         font-size: 14px;
-        height: 30px;
-        padding: 4px 10px;
-        border-radius: 10px;
-        border: 0;
-        background-color: #1c2025;
-        margin:4px;
+        line-height: 18px;
+        margin: 0 0 0 5px;
+        font-weight: bold;
+    }
 }
+
+.round-highlight {
+    color: #fff !important;
+    background-color: #ff3737 !important;
+    border-radius: 9px;
+}
+
 .btn-height:active {
     background-color: #25CDD6;
     color: #000;

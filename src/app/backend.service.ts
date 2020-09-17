@@ -66,8 +66,8 @@ export class BackendService {
     }
   }
 
-  public getHeightLog(node: string): Observable<number[]>{
-   return this.http.get<number[]>('http://149.56.25.24:8084/getnodesheight?node='+node);
+  public getHeightLog(node: string): Observable<any[]>{
+   return this.http.get<any[]>('http://149.56.25.24:8084/getnodesheight?node='+node);
   }
 
   public connectToConsensusStreamer(node: string, height: number): void {

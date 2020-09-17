@@ -48,7 +48,7 @@
     <div class="container" *ngIf="(selectedHeight==0)">
         <!-- <p class="logline" *ngFor="let item of consensusItem">{{item}}</p> -->
         <button class="btn-height" *ngFor="let height of availiableHeights"
-            (click)="getConsensusHeightLog(height)">{{height}}</button>
+            (click)="getConsensusHeightLog(height.Height)">{{height.Height}} <p [ngClass]="(height.Round>1)?'round-highlight':''">{{height.Round}}</p></button>
     </div>
     <div *ngIf="selectedHeight!=0">
         <div class="container" *ngIf="(filterconsensusString=='')">

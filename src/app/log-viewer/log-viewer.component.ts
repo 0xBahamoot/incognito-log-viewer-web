@@ -18,11 +18,11 @@ export class LogViewerComponent implements OnInit {
   node: '';
   lines: number = 0;
 
-  availiableHeights: number[];
+  availiableHeights: any[];
   selectedHeight: number = 0;
 
   constructor(private route: ActivatedRoute, public backend: BackendService) {
-    this.availiableHeights = new Array<number>();
+    this.availiableHeights = new Array<any>();
     this.route.queryParams.subscribe(params => {
       if (!!params.lines) {
         this.lines = params.lines;

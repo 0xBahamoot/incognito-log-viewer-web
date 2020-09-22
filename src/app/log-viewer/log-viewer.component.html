@@ -1,3 +1,5 @@
+
+<div class="animate__animated animate__fadeIn">
 <h1 style="width: 100%;display: table;margin: 20px auto 0;text-align: left;padding-left:25px;color:#fff" routerLink="/">
     Incognito Log
     Viewer | {{node}}
@@ -9,7 +11,7 @@
     <button [ngClass]="(logMode)?'':'btn-hightlight'" (click)="logMode=false">height</button>
 </div>
 
-<div *ngIf="logMode">
+<div *ngIf="logMode" class="animate__animated animate__fadeIn">
     <div class="filter-shortcut">
         <p>Filter shortcut:</p>
         <button (click)="filter('consensus')">consensus</button>
@@ -24,10 +26,10 @@
         <input type="text" placeholder="100" (keyup)="linesBeforeStream($event)" [(value)]="lines">
     </div>
     <div class="container" *ngIf="(filterString=='')">
-        <p class="logline" *ngFor="let item of logItem">{{item}}</p>
+        <p class="animate__animated animate__fadeIn logline" *ngFor="let item of logItem">{{item}}</p>
     </div>
     <div class="container" *ngIf="(filterString!='')" style="background-color:#000">
-        <p class="logline" *ngFor="let item of filterLogItem">{{item}}</p>
+        <p class="animate__animated animate__fadeIn logline" *ngFor="let item of filterLogItem">{{item}}</p>
     </div>
 
     <div class="filter-box">
@@ -36,7 +38,7 @@
     </div>
 </div>
 
-<div *ngIf="!logMode && (selectedHeight!=0)">
+<div *ngIf="!logMode && (selectedHeight!=0)" class="animate__animated animate__fadeIn">
     <div class="filter-shortcut" style="padding-left:25px">
         <button class="btn-height" (click)="resetHeight()">&#x25C0; Height View</button>
         <button class="btn-height">{{selectedHeight}}</button>
@@ -45,7 +47,7 @@
 
 
 <div *ngIf="!logMode">
-    <div class="container" *ngIf="(selectedHeight==0)">
+    <div class="animate__animated animate__fadeIn container" *ngIf="(selectedHeight==0)">
         <!-- <p class="logline" *ngFor="let item of consensusItem">{{item}}</p> -->
         <button class="btn-height" *ngFor="let height of availiableHeights"
             (click)="getConsensusHeightLog(height.Height)">{{height.Height}} <p [ngClass]="(height.Round>1)?'round-highlight':''">{{height.Round}}</p>
@@ -53,11 +55,11 @@
              <h4>{{height.StartTime}}</h4></button>
     </div>
     <div *ngIf="selectedHeight!=0">
-        <div class="container" *ngIf="(filterconsensusString=='')">
-            <p class="logline" *ngFor="let item of consensusItem">{{item}}</p>
+        <div class="animate__animated animate__fadeIn container" *ngIf="(filterconsensusString=='')">
+            <p class="animate__animated animate__fadeIn logline" *ngFor="let item of consensusItem">{{item}}</p>
         </div>
         <div class="container" *ngIf="(filterconsensusString!='')" style="background-color:#000">
-            <p class="logline" *ngFor="let item of filterconsensusItem">{{item}}</p>
+            <p class="animate__animated animate__fadeIn logline" *ngFor="let item of filterconsensusItem">{{item}}</p>
         </div>
 
         <div class="filter-box">
@@ -65,4 +67,5 @@
                 [(value)]="filterconsensusString">
         </div>
     </div>
+</div>
 </div>

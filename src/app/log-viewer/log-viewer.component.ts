@@ -51,14 +51,7 @@ export class LogViewerComponent implements OnInit {
 
   filterLines(f: any): void {
     if (f.code === 'Enter') {
-      this.filterString = '';
-      this.filterLogItem = new Array<string>();
-      this.logItem.forEach((item: string) => {
-        if (item.toLowerCase().includes(f.target.value.toLowerCase())) {
-          this.filterLogItem.push(item);
-        }
-      });
-      this.filterString = f.target.value.toLowerCase();
+      this.filter(f.target.value.toLowerCase())
     }
   }
 
@@ -125,14 +118,18 @@ export class LogViewerComponent implements OnInit {
 
   filterConsensusLines(f: any): void {
     if (f.code === 'Enter') {
-      this.filterconsensusString = '';
+      this.filterConsensus(f.target.value.toLowerCase());
+    }
+  }
+
+  filterConsensus(key: string): void {
+    this.filterconsensusString = '';
       this.filterconsensusItem = new Array<string>();
       this.consensusItem.forEach((item: string) => {
-        if (item.toLowerCase().includes(f.target.value.toLowerCase())) {
+        if (item.toLowerCase().includes(key)) {
           this.filterconsensusItem.push(item);
         }
       });
-      this.filterconsensusString = f.target.value.toLowerCase();
-    }
+      this.filterconsensusString = key;
   }
 }

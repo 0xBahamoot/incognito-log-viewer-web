@@ -39,9 +39,17 @@
 </div>
 
 <div *ngIf="!logMode && (selectedHeight!=0)" class="animate__animated animate__fadeIn">
-    <div class="filter-shortcut" style="padding-left:25px">
+    <div class="filter-shortcut" style="padding-left:22px">
         <button class="btn-height" (click)="resetHeight()">&#x25C0; Height View</button>
         <button class="btn-height">{{selectedHeight}}</button>
+    </div>
+    <div class="filter-shortcut">
+        <p>Filter shortcut:</p>
+        <button (click)="filterConsensus('consensus')">consensus</button>
+        <button (click)="filterConsensus('vote')">vote</button>
+        <button (click)="filterConsensus('[err]')">[err]</button>
+        <button (click)="filterConsensus('[inf]')">[inf]</button>
+        <button (click)="filterConsensus('[wrn]')">[wrn]</button>
     </div>
 </div>
 

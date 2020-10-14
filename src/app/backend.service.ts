@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { environment } from '../environments/environment';
-import { catchError, tap,retry } from 'rxjs/operators';
-import { Observable ,throwError} from 'rxjs';
+import { catchError, tap, retry } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 import { EMPTY } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
@@ -50,7 +50,7 @@ export class BackendService {
         url: 'ws://149.56.25.24:8084/streamlog?node=' + node + '&lines=' + lines.toString(),
         deserializer: msg => msg.data,
       });
-      console.log(this.logStreamSocket.subscribe())
+      console.log(this.logStreamSocket.subscribe());
       this.logStream = this.logStreamSocket.pipe(
         tap({
           error: error => {
@@ -66,8 +66,8 @@ export class BackendService {
     }
   }
 
-  public getHeightLog(node: string): Observable<any[]>{
-   return this.http.get<any[]>('http://149.56.25.24:8084/getnodesheight?node='+node);
+  public getHeightLog(node: string): Observable<any[]> {
+    return this.http.get<any[]>('http://149.56.25.24:8084/getnodesheight?node=' + node);
   }
 
   public connectToConsensusStreamer(node: string, height: number): void {
@@ -79,7 +79,7 @@ export class BackendService {
         url: 'ws://149.56.25.24:8084/getheightlog?node=' + node + '&height=' + height.toString(),
         deserializer: msg => msg.data,
       });
-      console.log(this.consensusStreamSocket.subscribe())
+      // console.log(this.consensusStreamSocket.subscribe())
       this.consensusStream = this.consensusStreamSocket.pipe(
         tap({
           error: error => {

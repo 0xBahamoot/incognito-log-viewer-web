@@ -2,6 +2,8 @@ import { BackendService } from './../backend.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-log-viewer',
   templateUrl: './log-viewer.component.html',
@@ -21,13 +23,30 @@ export class LogViewerComponent implements OnInit {
   availiableHeights: any[];
   selectedHeight: number = 0;
 
-  constructor(private route: ActivatedRoute, public backend: BackendService) {
+  constructor(private route: ActivatedRoute, public backend: BackendService, private location: Location) {
     this.availiableHeights = new Array<any>();
     this.route.queryParams.subscribe(params => {
+      this.node = params.node;
       if (!!params.lines) {
         this.lines = params.lines;
       }
-      this.node = params.node;
+      if ((!!params.height) && (!params.lines)) {
+        this.logMode = false;
+        this.selectedHeight = params.height;
+        this.backend.getHeightLog(this.node).subscribe(response => {
+          this.availiableHeights = response;
+          this.availiableHeights.forEach((n, n1, n2) => {
+            if (Number(n.Height) === Number(this.selectedHeight)) {
+              this.getConsensusHeightLog(this.selectedHeight);
+            }
+          });
+        });
+      } else {
+        setTimeout(() => {
+          this.getConsensusHeights();
+        }, 2000);
+      }
+
       setTimeout(() => {
         backend.connectToLogStreamer(this.node, this.lines);
         backend.logStream.subscribe(log => {
@@ -40,9 +59,6 @@ export class LogViewerComponent implements OnInit {
         });
       }, 500);
     });
-    setTimeout(() => {
-      this.getConsensusHeights();
-    }, 2000);
   }
 
   ngOnInit(): void {
@@ -107,6 +123,7 @@ export class LogViewerComponent implements OnInit {
   }
 
   getConsensusHeightLog(height: number): void {
+    this.location.go('/logviewer?node=' + this.node.toString() + '&height=' + height.toString());
     this.selectedHeight = height;
     this.filterconsensusString = '';
     this.filterconsensusItem = new Array<string>();

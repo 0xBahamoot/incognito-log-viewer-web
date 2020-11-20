@@ -57,7 +57,7 @@
 <div *ngIf="!logMode">
     <div class="animate__animated animate__fadeIn container" *ngIf="(selectedHeight==0)">
         <!-- <p class="logline" *ngFor="let item of consensusItem">{{item}}</p> -->
-        <button class="btn-height" *ngFor="let height of availiableHeights"
+        <button class="btn-height btn-height-block" *ngFor="let height of availiableHeights"
             (click)="getConsensusHeightLog(height.Height)">{{height.Height}} <p [ngClass]="(height.Round>1)?'round-highlight':''">{{height.Round}}</p>
              <h4 [ngClass]="(height.ErrorCount>0)?'error-highlight':''">Errs: {{height.ErrorCount}}</h4>
              <h4>{{height.StartTime}}</h4></button>

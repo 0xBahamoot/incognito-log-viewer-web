@@ -94,4 +94,8 @@ export class BackendService {
         }), catchError(_ => EMPTY));
     }
   }
+
+  public getHostDiskLeft():Observable<any> {
+    return this.http.get<any[]>('http://149.56.25.24:8084/getdiskleft');
+  }
 }
